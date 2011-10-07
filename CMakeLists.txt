@@ -7,6 +7,8 @@ set (VERSION_MINOR 	0)
 set (VERSION_REV 	1)
 set (VERSION		${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_REV})
 
+set (CMAKE_LIBRARY_OUTPUT_DIRECTORY ${ZAMARA_BINARY_DIR}/lib)
+
 configure_file (
 	${ZAMARA_SOURCE_DIR}/include/config.h.in
 	${ZAMARA_SOURCE_DIR}/include/config.h

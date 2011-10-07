@@ -14,5 +14,10 @@ configure_file (
 	${ZAMARA_SOURCE_DIR}/include/config.h
 	)
 
-add_subdirectory(${ZAMARA_SOURCE_DIR}/src)
+set (ZAMARA_INCLUDE_DIRS ${ZAMARA_SOURCE_DIR}/include)
+set (ZAMARA_LIBRARY_DIRS ${ZAMARA_SOURCE_DIR}/lib)
 
+enable_testing()
+
+add_subdirectory(src)
+add_subdirectory(unittest)

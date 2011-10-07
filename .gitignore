@@ -1,2 +1,6 @@
 *.swp
+*.cmake
 .DS_Store
+CMakeFiles/
+CMakeCache.txt
+Makefile

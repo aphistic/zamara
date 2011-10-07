@@ -1,5 +1,5 @@
-#include <zamara.h>
+#include "zamara/zamara.h"
 
-static Replay Zamara::LoadReplay(std::string file)
+Replay Zamara::LoadReplay(std::string file)
 {
 }

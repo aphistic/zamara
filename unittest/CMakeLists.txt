@@ -12,7 +12,13 @@ link_directories(
 	${ZAMARA_LIBRARY_DIRS}
 	)
 
-add_executable(${PROJECT_TEST_NAME} test.cpp)
+file (GLOB CPP_SRC
+	"tests/*.cpp"
+	)
+
+set (CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/unittest/bin)
+
+add_executable(${PROJECT_TEST_NAME} test.cpp ${CPP_SRC})
 target_link_libraries(${PROJECT_TEST_NAME} gtest zamara)
 
 add_test(${PROJECT_TEST_NAME} ${PROJECT_TEST_NAME})

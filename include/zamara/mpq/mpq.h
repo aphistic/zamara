@@ -13,12 +13,20 @@ namespace zamara
 class Mpq
 {
 public:
+	Mpq();
+	Mpq(std::string);
 	~Mpq();
 
-	static Mpq* Load(std::string);
-protected:
-	Mpq(std::string);
+	void Load(std::string);
+	void Load();
+
+	void Close();
+
+	bool IsLoaded();
+
 private:
+	bool m_isLoaded;
+	std::string m_filePath;
 	std::ifstream m_file;
 };
 	}

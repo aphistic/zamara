@@ -5,3 +5,6 @@ CMakeFiles/
 CMakeCache.txt
 Makefile
 include/config.h
+Testing/
+lib/
+unittest/bin/

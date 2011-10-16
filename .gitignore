@@ -1,7 +1,9 @@
 *.swp
 *.cmake
 .DS_Store
+*.xcodeproj/
 CMakeFiles/
+CMakeScripts/
 CMakeCache.txt
 Makefile
 include/config.h

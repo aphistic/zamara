@@ -1,6 +1,9 @@
 #!/bin/sh
 
 find . -name "CMakeFiles" | xargs rm -rfv
+find . -name "CMakeScripts" | xargs rm -rfv
+find . -name "*.xcodeproj" | xargs rm -rfv
+find . -name "*.build" | xargs rm -rfv
 find . -name "Makefile" | xargs rm -rfv
 find . -name "cmake_install.cmake" | xargs rm -rfv
 find . -name "CMakeCache.txt" | xargs rm -rfv

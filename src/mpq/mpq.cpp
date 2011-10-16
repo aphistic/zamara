@@ -15,7 +15,6 @@ Mpq::Mpq() { Mpq(""); }
 
 Mpq::Mpq(std::string filePath)
 {
-	m_isLoaded = false;
 	m_filePath = filePath;
 }
 
@@ -41,14 +40,20 @@ void Mpq::Load()
 	}
 	m_file.open(m_filePath.c_str(), std::ios::in | std::ios::binary);
 
-	if (!m_file)
+	if (!IsLoaded())
 	{
-		//throw new ZamaraException("Could not find file.",
-		//	ZamaraException::FILE_NOT_FOUND);
 		throw ZamaraException("Could not find file.",
-			ZamaraException::FILE_NOT_FOUND);;
+                              ZamaraException::FILE_NOT_FOUND);
 	}
-	m_isLoaded = true;
+    
+    char magic[3];
+    m_file.read(magic, 3);
+    if (strcmp(magic, "MPQ"))
+    {
+        throw ZamaraException("File is not an MPQ.",
+                              ZamaraException::FILE_NOT_MPQ);
+    }
+    
 }
 
 void Mpq::Close()
@@ -57,12 +62,15 @@ void Mpq::Close()
 	{
 		m_file.close();
 	}
-	m_isLoaded = false;
 }
 
 bool Mpq::IsLoaded()
 {
-	return m_isLoaded && m_file;
+    if (m_file)
+    {
+        return m_file.is_open();
+    }
+    return false;
 }
 
 	}

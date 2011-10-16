@@ -8,6 +8,7 @@ CMakeScripts/
 CMakeCache.txt
 Makefile
 include/config.h
+include/config_test.h
 Testing/
 lib/
 unittest/bin/

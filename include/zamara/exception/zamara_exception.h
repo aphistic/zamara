@@ -19,7 +19,7 @@ public:
 	};
 
 	ZamaraException(const std::string& message, ExceptionType type) throw()
-		: m_message(message), m_exType(type) { }
+		: m_exType(type), m_message(message) { }
 	ZamaraException() throw() { }
 	~ZamaraException() throw() { }
 

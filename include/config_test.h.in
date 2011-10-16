@@ -1,0 +1,9 @@
+#ifndef _CONFIG_TEST_H
+#define _CONFIG_TEST_H
+
+#include "config.h"
+
+#define BUILD_DIR "@BUILD_DIR@"
+#define TEST_DIR "@BUILD_DIR@/unittest"
+
+#endif

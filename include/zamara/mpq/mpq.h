@@ -25,7 +25,6 @@ public:
 	bool IsLoaded();
 
 private:
-	bool m_isLoaded;
 	std::string m_filePath;
 	std::ifstream m_file;
 };

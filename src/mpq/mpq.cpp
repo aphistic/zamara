@@ -45,7 +45,8 @@ void Mpq::Load()
 	{
 		//throw new ZamaraException("Could not find file.",
 		//	ZamaraException::FILE_NOT_FOUND);
-		throw std::exception();
+		throw ZamaraException("Could not find file.",
+			ZamaraException::FILE_NOT_FOUND);;
 	}
 	m_isLoaded = true;
 }

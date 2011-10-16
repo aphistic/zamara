@@ -3,12 +3,13 @@
 #include "zamara/exception/zamara_exception.h"
 
 using namespace zamara::mpq;
+using namespace zamara::exception;
 
 TEST(MpqFiles, MpqOpenFileFail)
 {
 	Mpq testMpq;
 	ASSERT_THROW(testMpq.Load("files/DoesNotExist.SC2Replay"),
-			std::exception);
+			ZamaraException);
 	ASSERT_FALSE(testMpq.IsLoaded());
 }
 

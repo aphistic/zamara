@@ -2,6 +2,7 @@
 *.cmake
 .DS_Store
 *.xcodeproj/
+*.build/
 CMakeFiles/
 CMakeScripts/
 CMakeCache.txt

@@ -43,15 +43,16 @@ void Mpq::Load()
 	if (!IsLoaded())
 	{
 		throw ZamaraException("Could not find file.",
-					ZamaraException::FILE_NOT_FOUND);
+							  ZamaraException::FILE_NOT_FOUND);
 	}
     
 	char magic[3];
 	m_file.read(magic, 3);
-	if ((*magic) == 0x4d5051) // Check that the file starts with "MPQ"
+	if (strncmp(magic, "MPQ", 3)) // Check that the file starts with "MPQ"
 	{
-        	throw ZamaraException("File is not an MPQ.",
-					ZamaraException::FILE_NOT_MPQ);
+		Close();
+		throw ZamaraException("File is not an MPQ.",
+							  ZamaraException::FILE_NOT_MPQ);
 	}
 }
 

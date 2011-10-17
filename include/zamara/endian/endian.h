@@ -1,5 +1,5 @@
-#ifndef _ENDIAN_H
-#define _ENDIAN_H
+#ifndef _ZAMARA_ENDIAN_H
+#define _ZAMARA_ENDIAN_H
 
 #include <stdint.h>
 

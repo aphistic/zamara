@@ -2,6 +2,7 @@
 #define _MPQ_H
 
 #include <string>
+#include <string.h>
 #include <iostream>
 #include <fstream>
 

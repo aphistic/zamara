@@ -15,11 +15,6 @@ configure_file (
 	${ZAMARA_SOURCE_DIR}/include/config.h
 	)
 
-configure_file (
-	${ZAMARA_SOURCE_DIR}/include/config_test.h.in
-	${ZAMARA_SOURCE_DIR}/include/config_test.h
-	)
-
 set (ZAMARA_INCLUDE_DIRS ${ZAMARA_SOURCE_DIR}/include)
 set (ZAMARA_LIBRARY_DIRS ${ZAMARA_SOURCE_DIR}/lib)
 

@@ -7,13 +7,13 @@ using namespace zamara::endian;
 
 TEST(Endianness, CheckEndianness)
 {
-    uint32_t endianCheck = 16909060; // 0x01020304 on little endian
-    if (endianCheck == 0x01020304)
-    {
-        ASSERT_FALSE(Endian::IsBigEndian());
-    }
-    else
-    {
-        ASSERT_TRUE(Endian::IsBigEndian());
-    }
+	// Use CMake to double check the endian check
+	if (IS_BIG_ENDIAN)
+	{
+		ASSERT_TRUE(Endian::IsBigEndian());
+	}
+	else
+	{
+		ASSERT_FALSE(Endian::IsBigEndian());
+	}
 }

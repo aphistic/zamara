@@ -4,7 +4,7 @@
 #include "config.h"
 
 #define BUILD_DIR "@BUILD_DIR@"
-#define TEST_DIR "@BUILD_DIR@/unittest"
+#define TEST_DIR "@BUILD_DIR@/test"
 
 #define IS_BIG_ENDIAN @IS_BIG_ENDIAN@
 

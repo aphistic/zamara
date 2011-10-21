@@ -18,9 +18,13 @@ configure_file (
 set (ZAMARA_INCLUDE_DIRS ${ZAMARA_SOURCE_DIR}/include)
 set (ZAMARA_LIBRARY_DIRS ${ZAMARA_SOURCE_DIR}/lib)
 
+if (DEBUG)
+	set (CMAKE_CXX_FLAGS "-g -Wall")
+endif (DEBUG)
+
 if (BUILD_TESTS)
-	enable_testing()
-	add_subdirectory(test)
+	enable_testing ()
+	add_subdirectory (test)
 endif (BUILD_TESTS)
 
-add_subdirectory(src)
+add_subdirectory (src)

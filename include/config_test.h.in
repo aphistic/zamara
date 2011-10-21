@@ -6,6 +6,10 @@
 #define BUILD_DIR "@BUILD_DIR@"
 #define TEST_DIR "@BUILD_DIR@/test"
 
+#define TR_NOT_MPQ TEST_DIR "/files/not_a_replay.SC2Replay"
+#define TR_1 TEST_DIR "/files/replay1.SC2Replay"
+#define TR_NOT_EXIST TEST_DIR "/files/does_not_exist.SC2Replay"
+
 #define IS_BIG_ENDIAN @IS_BIG_ENDIAN@
 
 #endif

@@ -11,4 +11,4 @@ include/config.h
 include/config_test.h
 Testing/
 lib/
-unittest/bin/
+test/bin/

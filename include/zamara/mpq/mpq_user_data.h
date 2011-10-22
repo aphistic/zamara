@@ -20,6 +20,9 @@ protected:
 public:
 	friend class Mpq;
 
+	uint32_t getHeaderSize();
+	uint32_t getArchiveSize();
+
 };
 
 	}

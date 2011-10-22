@@ -13,4 +13,8 @@ include_directories (
 	../include
 	)
 
-add_library(zamara STATIC ${CPP_SRC})
+if (STATIC)
+	add_library(zamara STATIC ${CPP_SRC})
+else ()
+	add_library(zamara SHARED ${CPP_SRC})
+endif (STATIC)

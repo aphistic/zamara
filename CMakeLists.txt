@@ -22,9 +22,9 @@ if (DEBUG)
 	set (CMAKE_CXX_FLAGS "-g -Wall")
 endif (DEBUG)
 
-if (BUILD_TESTS)
+if (NOT NO_TESTS)
 	enable_testing ()
 	add_subdirectory (test)
-endif (BUILD_TESTS)
+endif (NOT NO_TESTS)
 
 add_subdirectory (src)

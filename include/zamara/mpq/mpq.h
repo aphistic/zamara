@@ -30,6 +30,9 @@ public:
 	uint32_t GetHeaderSize();
 	uint32_t GetArchiveSize();
 
+	bool hasUserData();
+	MpqUserData* getUserData();
+
 private:
 	MpqUserData *m_userData;
 	

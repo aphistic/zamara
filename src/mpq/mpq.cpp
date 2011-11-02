@@ -133,6 +133,19 @@ uint32_t Mpq::GetArchiveSize()
 	return m_archiveSize;
 }
 
+bool Mpq::hasUserData()
+{
+	if (m_userData)
+	{
+		return true;
+	}
+	return false;
+}
+
+MpqUserData* Mpq::getUserData()
+{
+	return m_userData;
+}
 
 	}
 }

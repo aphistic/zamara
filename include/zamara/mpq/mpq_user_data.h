@@ -11,17 +11,19 @@ namespace zamara
 class MpqUserData
 {
 private:
-	uint32_t m_headerSize;
-	uint32_t m_archiveSize;
+	uint32_t m_maxUserDataSize;
+	uint32_t m_archiveOffset;
+	uint32_t m_userDataSize;
 
 protected:
-	MpqUserData(void* userData);
+	MpqUserData(char* userData);
 
 public:
 	friend class Mpq;
 
-	uint32_t getHeaderSize();
-	uint32_t getArchiveSize();
+	uint32_t getMaxUserDataSize();
+	uint32_t getArchiveOffset();
+	uint32_t getUserDataSize();
 
 };
 

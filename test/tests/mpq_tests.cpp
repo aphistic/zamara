@@ -40,6 +40,18 @@ TEST(MpqFiles, OpenFileNotMpq)
 	ASSERT_FALSE(testMpq.IsLoaded());			
 }
 
+// User Data Tets
+TEST(MpqFiles, UserDataHeader)
+{
+	Mpq testMpq;
+	testMpq.Load(TR_1);
+
+	ASSERT_TRUE(testMpq.hasUserData());
+	ASSERT_EQ(512, testMpq.getUserData()->getMaxUserDataSize());
+	ASSERT_EQ(1024, testMpq.getUserData()->getArchiveOffset());
+	ASSERT_EQ(60, testMpq.getUserData()->getUserDataSize());
+}
+
 TEST(MpqFiles, ReadHeaderSize)
 {
 	Mpq testMpq;

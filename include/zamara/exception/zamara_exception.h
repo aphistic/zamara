@@ -19,16 +19,16 @@ public:
 	};
 
 	ZamaraException(const std::string& message, ExceptionType type) throw()
-		: m_exType(type), m_message(message) { }
+		: exception_type_(type), message_(message) { }
 	ZamaraException() throw() { }
 	~ZamaraException() throw() { }
 
-	ExceptionType getType() { return m_exType; }
-	std::string getMessage() { return m_message; }
+	ExceptionType exception_type() { return exception_type_; }
+	std::string message() { return message_; }
 
 private:
-        ExceptionType m_exType;
-        std::string m_message;
+        ExceptionType exception_type_;
+        std::string message_;
 
 };
 

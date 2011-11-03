@@ -15,15 +15,15 @@ public:
 	MpqBlockEncryptor(std::string, uint32_t);
 	~MpqBlockEncryptor();
 
-	void decrypt();
-	void encrypt();
-	void hashString();
+	void Decrypt();
+	void Encrypt();
+	void HashString();
 
 private:
-	uint32_t m_key;
-	uint32_t m_offset;
-	uint32_t m_buffer;
-	uint32_t m_size;
+	uint32_t key_;
+	uint32_t offset_;
+	uint32_t buffer_;
+	uint32_t size_;
 
 };
 

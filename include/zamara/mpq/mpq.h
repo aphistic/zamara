@@ -17,28 +17,29 @@ namespace zamara
 class Mpq
 {
 public:
-	MpqHeader header;
-
 	Mpq(std::string = "");
 	~Mpq();
 
-	void load(std::string);
-	void load();
+	void Load(std::string);
+	void Load();
 
-	void close();
+	void Close();
 
-	bool isLoaded();
+	bool IsLoaded();
 
-	bool hasUserData();
-	MpqUserData* getUserData();
+	bool HasUserData();
+
+	MpqHeader header();
+	MpqUserData* user_data();
 
 private:
-	MpqUserData* m_userData;
+	MpqHeader header_;
+	MpqUserData* user_data_;
 
-	std::string m_filePath;
-	std::ifstream m_file;
+	std::string file_path_;
+	std::ifstream file_;
 
-	void readHeader();
+	void ReadHeader();
 };
 	}
 }

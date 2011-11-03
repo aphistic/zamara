@@ -9,13 +9,13 @@ class Zamara
 {
 public:
 	// Version Info
-	static int versionMajor();
-	static int versionMinor();
-	static int versionRevision();
+	static int version_major();
+	static int version_minor();
+	static int version_revision();
 	static std::string version();
 
 	// Loading a Replay
-	static Replay* loadReplay(std::string file);
+	static Replay* LoadReplay(std::string file);
 
 private:
 };

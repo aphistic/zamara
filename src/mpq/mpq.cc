@@ -14,71 +14,71 @@ namespace zamara
 	namespace mpq
 	{
 
-Mpq::Mpq(std::string filePath)
+Mpq::Mpq(std::string file_path)
 {
-	m_userData = 0;
-	m_filePath = filePath;
+	user_data_ = 0;
+	file_path_ = file_path;
 }
 
 Mpq::~Mpq()
 {
-	delete m_userData;
-	m_userData = 0;
+	delete user_data_;
+	user_data_ = 0;
 
-	if (isLoaded())
+	if (IsLoaded())
 	{
-		close();
+		Close();
 	}
 }
 
-void Mpq::load(std::string filePath)
+void Mpq::Load(std::string file_path)
 {
-	m_filePath = filePath;
-	load();
+	file_path_ = file_path;
+	Load();
 }
 
-void Mpq::load()
+void Mpq::Load()
 {
-	if (isLoaded())
+	if (IsLoaded())
 	{
-		close();
+		Close();
 	}
-	m_file.open(m_filePath.c_str(), std::ios::in | std::ios::binary);
+	file_.open(file_path_.c_str(), std::ios::in | std::ios::binary);
 
-	if (!isLoaded())
+	if (!IsLoaded())
 	{
 		throw ZamaraException("Could not find file.",
 							  ZamaraException::FILE_NOT_FOUND);
 	}
     
-	readHeader();
+	ReadHeader();
 }
 
-void Mpq::close()
+void Mpq::Close()
 {
-	if (m_file != NULL)
+	if (file_ != NULL)
 	{
-		m_file.close();
+		file_.close();
 	}
 }
 
-bool Mpq::isLoaded()
+bool Mpq::IsLoaded()
 {
-    if (m_file)
+    if (file_)
     {
-        return m_file.is_open();
+        return file_.is_open();
     }
     return false;
 }
 
-void Mpq::readHeader()
+void Mpq::ReadHeader()
 {
 	char *buffer = new char[8]; // A buffer big enough to read up to 64 bits of data
 	
-	m_file.read(buffer, 4);
+	file_.read(buffer, 4);
 	if (strncmp(buffer, "MPQ", 3)) // Check that the file starts with "MPQ"
 	{
-		close();
+		Close();
 		throw ZamaraException("File is not an MPQ.",
 							  ZamaraException::FILE_NOT_MPQ);
 	}
@@ -87,59 +87,64 @@ void Mpq::readHeader()
 	{
 		// This is the user data portion of the file.
 		
-		uint32_t userHeaderSize;
-		uint32_t userArchiveSize;
+		uint32_t user_header_size;
+		uint32_t user_archive_size;
 
 		// Header Size
-        	m_file.read(buffer, 4);
-	        userHeaderSize = Endian::leToH32(*((uint32_t*) buffer));
+        	file_.read(buffer, 4);
+	        user_header_size = Endian::LeToH32(*((uint32_t*) buffer));
 
 	        // Archive Size
-	        m_file.read(buffer, 4);
-	        userArchiveSize = Endian::leToH32(*((uint32_t*) buffer));
+	        file_.read(buffer, 4);
+	        user_archive_size = Endian::LeToH32(*((uint32_t*) buffer));
 
-		m_file.seekg(0, ios::beg);
+		file_.seekg(0, ios::beg);
 		
-		char *userBuffer = new char[userArchiveSize];
+		char *user_buffer = new char[user_archive_size];
 
-		m_file.read(userBuffer, userArchiveSize);
+		file_.read(user_buffer, user_archive_size);
 
-		m_userData = new MpqUserData(userBuffer);
+		user_data_ = new MpqUserData(user_buffer);
 
-		m_file.read(buffer, 4);
+		file_.read(buffer, 4);
 
-		delete[] userBuffer;
+		delete[] user_buffer;
 	}
 
 
 	// Header Size
-	m_file.read(buffer, 4);
-	header.headerSize = Endian::leToH32(*((uint32_t*) buffer));
+	file_.read(buffer, 4);
+	header_.header_size = Endian::LeToH32(*((uint32_t*) buffer));
 
 	delete[] buffer;
 
 	// Make a new buffer to read the rest of the header
-	buffer = new char[header.headerSize - 4]; // Already read 4 bytes of header
-	m_file.read(buffer, header.headerSize - 4);	
+	buffer = new char[header_.header_size - 4]; // Already read 4 bytes of header
+	file_.read(buffer, header_.header_size - 4);	
 
 	// Archive Size
-	header.archiveSize = Endian::leToH32(*((uint32_t*) buffer));
+	header_.archive_size = Endian::LeToH32(*((uint32_t*) buffer));
 
 	delete[] buffer;
 }
 
-bool Mpq::hasUserData()
+bool Mpq::HasUserData()
 {
-	if (m_userData)
+	if (user_data_)
 	{
 		return true;
 	}
 	return false;
 }
 
-MpqUserData* Mpq::getUserData()
+MpqHeader Mpq::header()
 {
-	return m_userData;
+	return header_;
+}
+
+MpqUserData* Mpq::user_data()
+{
+	return user_data_;
 }
 
 	}

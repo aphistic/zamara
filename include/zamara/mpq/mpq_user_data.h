@@ -13,6 +13,7 @@ namespace zamara
 class MpqUserData
 {
 private:
+	MpqUserDataHeader header_;
 
 protected:
 	MpqUserData(char* userData);
@@ -20,8 +21,7 @@ protected:
 public:
 	friend class Mpq;
 
-	MpqUserDataHeader header;
-
+	MpqUserDataHeader header();
 };
 
 	}

@@ -5,27 +5,27 @@
 
 struct MpqUserDataHeader
 {
-	uint32_t maxUserDataSize;
-	uint32_t archiveOffset;
-	uint32_t userDataSize;
+	uint32_t max_user_data_size;
+	uint32_t archive_offset;
+	uint32_t user_data_size;
 };
 
 struct MpqHeader
 {
-	uint32_t headerSize;
-	uint32_t archiveSize;
-	uint32_t formatVersion;
+	uint32_t header_size;
+	uint32_t archive_size;
+	uint32_t format_version;
 
-	uint8_t sectorSizeShift;
+	uint8_t sector_size_shift;
 
-	uint32_t hashTableOffset;
-	uint32_t blockTableOffset;
-	uint32_t hashTableEntries;
-	uint32_t blockTableEntries;
+	uint32_t hash_table_offset;
+	uint32_t block_table_offset;
+	uint32_t hash_table_entries;
+	uint32_t block_table_entries;
 
-	uint64_t extendedBlockTableOffset;
-	uint16_t hashTableOffsetHigh;
-	uint16_t blockTableOffsetHigh;
+	uint64_t extended_block_table_offset;
+	uint16_t hash_table_offset_high;
+	uint16_t block_table_offset_high;
 };
 
 #endif // ZAMARA_MPQ_MPQ_STRUCTS_H_

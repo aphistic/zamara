@@ -10,13 +10,16 @@ namespace zamara
 	namespace mpq
 	{
 
-MpqUserData::MpqUserData(char* userData)
+MpqUserData::MpqUserData(char* user_data)
 {
-	memcpy(&header, userData, sizeof(MpqUserDataHeader));
+	header_.max_user_data_size = Endian::LeToH32(*((uint32_t*)(user_data + 0x04)));
+	header_.archive_offset = Endian::LeToH32(*((uint32_t*)(user_data + 0x08)));
+	header_.user_data_size = Endian::LeToH32(*((uint32_t*)(user_data + 0x0C)));
+}
 
-	header.maxUserDataSize = Endian::leToH32(*((uint32_t*)(userData + 0x04)));
-	header.archiveOffset = Endian::leToH32(*((uint32_t*)(userData + 0x08)));
-	header.userDataSize = Endian::leToH32(*((uint32_t*)(userData + 0x0C)));
+MpqUserDataHeader MpqUserData::header()
+{
+	return header_;
 }
 
 	}

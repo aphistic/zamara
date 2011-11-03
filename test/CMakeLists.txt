@@ -18,7 +18,7 @@ link_directories(
 	)
 
 file (GLOB CPP_SRC
-	"tests/*.cpp"
+	"tests/*.cc"
 	)
 
 set (TEST_BINARY ${PROJECT_BINARY_DIR}/bin)

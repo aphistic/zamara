@@ -14,56 +14,56 @@ TEST(MpqFiles, OpenFileFail)
 {
 	Mpq testMpq;
 	try {
-        	testMpq.Load(TR_NOT_EXIST);
+        	testMpq.load(TR_NOT_EXIST);
 	} catch (ZamaraException& ex) {
 		ASSERT_EQ(ZamaraException::FILE_NOT_FOUND, ex.getType());
 	}
-	ASSERT_FALSE(testMpq.IsLoaded());
+	ASSERT_FALSE(testMpq.isLoaded());
 }
 
 TEST(MpqFiles, OpenFileSucceed)
 {
 	Mpq testMpq;
-	testMpq.Load(TR_1);
+	testMpq.load(TR_1);
     
-	ASSERT_TRUE(testMpq.IsLoaded());
+	ASSERT_TRUE(testMpq.isLoaded());
 }
 
 TEST(MpqFiles, OpenFileNotMpq)
 {
 	Mpq testMpq;
 	try {
-		testMpq.Load(TR_NOT_MPQ);
+		testMpq.load(TR_NOT_MPQ);
 	} catch (ZamaraException& ex) {
 		ASSERT_EQ(ZamaraException::FILE_NOT_MPQ, ex.getType());
 	}
-	ASSERT_FALSE(testMpq.IsLoaded());			
+	ASSERT_FALSE(testMpq.isLoaded());			
 }
 
 // User Data Tets
 TEST(MpqFiles, UserDataHeader)
 {
 	Mpq testMpq;
-	testMpq.Load(TR_1);
+	testMpq.load(TR_1);
 
 	ASSERT_TRUE(testMpq.hasUserData());
-	ASSERT_EQ(512, testMpq.getUserData()->getMaxUserDataSize());
-	ASSERT_EQ(1024, testMpq.getUserData()->getArchiveOffset());
-	ASSERT_EQ(60, testMpq.getUserData()->getUserDataSize());
+	ASSERT_EQ(512, testMpq.getUserData()->header.maxUserDataSize);
+	ASSERT_EQ(1024, testMpq.getUserData()->header.archiveOffset);
+	ASSERT_EQ(60, testMpq.getUserData()->header.userDataSize);
 }
 
 TEST(MpqFiles, ReadHeaderSize)
 {
 	Mpq testMpq;
-	testMpq.Load(TR_1);
+	testMpq.load(TR_1);
 
-	ASSERT_EQ(44, testMpq.GetHeaderSize());
+	ASSERT_EQ(44, testMpq.header.headerSize);
 }
 
 TEST(MpqFiles, ReadArchiveSize)
 {
 	Mpq testMpq;
-	testMpq.Load(TR_1);
+	testMpq.load(TR_1);
 
-	ASSERT_EQ(109012, testMpq.GetArchiveSize());
+	ASSERT_EQ(109012, testMpq.header.archiveSize);
 }

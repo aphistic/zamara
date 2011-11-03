@@ -1,5 +1,5 @@
-#ifndef _CONFIG_H
-#define _CONFIG_H
+#ifndef ZAMARA_CONFIG_H_
+#define ZAMARA_CONFIG_H_
 
 #define VERSION_MAJOR @VERSION_MAJOR@
 #define VERSION_MINOR @VERSION_MINOR@
@@ -7,4 +7,4 @@
 
 #define VERSION "@VERSION@"
 
-#endif
+#endif // ZAMARA_CONFIG_H_

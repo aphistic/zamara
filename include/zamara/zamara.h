@@ -1,5 +1,5 @@
-#ifndef __ZAMARA_H
-#define __ZAMARA_H
+#ifndef ZAMARA_ZAMARA_H_
+#define ZAMARA_ZAMARA_H_
 
 #include <string>
 
@@ -9,15 +9,15 @@ class Zamara
 {
 public:
 	// Version Info
-	static int VersionMajor();
-	static int VersionMinor();
-	static int VersionRevision();
-	static std::string Version();
+	static int versionMajor();
+	static int versionMinor();
+	static int versionRevision();
+	static std::string version();
 
 	// Loading a Replay
-	static Replay LoadReplay(std::string file);
+	static Replay* loadReplay(std::string file);
 
 private:
 };
 
-#endif
+#endif // ZAMARA_ZAMARA_H_

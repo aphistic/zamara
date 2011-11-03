@@ -1,5 +1,5 @@
-#ifndef _MPQ_H
-#define _MPQ_H
+#ifndef ZAMARA_MPQ_MPQ_H_
+#define ZAMARA_MPQ_MPQ_H_
 
 #include <string>
 #include <string.h>
@@ -17,41 +17,31 @@ namespace zamara
 class Mpq
 {
 public:
+	MpqHeader header;
+
 	Mpq(std::string = "");
 	~Mpq();
 
-	void Load(std::string);
-	void Load();
+	void load(std::string);
+	void load();
 
-	void Close();
+	void close();
 
-	bool IsLoaded();
-
-	uint32_t GetHeaderSize();
-	uint32_t GetArchiveSize();
+	bool isLoaded();
 
 	bool hasUserData();
 	MpqUserData* getUserData();
 
 private:
-	MpqUserData *m_userData;
-	
+	MpqUserData* m_userData;
+
 	std::string m_filePath;
 	std::ifstream m_file;
 
-	uint32_t m_headerSize;
-	uint32_t m_archiveSize;
-	uint16_t m_formatVersion;
-	uint8_t m_sectorSizeShift;
-	uint32_t m_hashTableOffset;
-	uint32_t m_blockTableOffset;
-	uint32_t m_hashTablEntries;
-	uint32_t m_blockTableEntries;
-
-	void ReadHeader();
+	void readHeader();
 };
 	}
 }
 
 
-#endif
+#endif // ZAMARA_MPQ_MPQ_H_

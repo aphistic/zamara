@@ -25,36 +25,36 @@ Mpq::~Mpq()
 	delete m_userData;
 	m_userData = 0;
 
-	if (IsLoaded())
+	if (isLoaded())
 	{
-		Close();
+		close();
 	}
 }
 
-void Mpq::Load(std::string filePath)
+void Mpq::load(std::string filePath)
 {
 	m_filePath = filePath;
-	Load();
+	load();
 }
 
-void Mpq::Load()
+void Mpq::load()
 {
-	if (IsLoaded())
+	if (isLoaded())
 	{
-		Close();
+		close();
 	}
 	m_file.open(m_filePath.c_str(), std::ios::in | std::ios::binary);
 
-	if (!IsLoaded())
+	if (!isLoaded())
 	{
 		throw ZamaraException("Could not find file.",
 							  ZamaraException::FILE_NOT_FOUND);
 	}
     
-	ReadHeader();
+	readHeader();
 }
 
-void Mpq::Close()
+void Mpq::close()
 {
 	if (m_file != NULL)
 	{
@@ -62,7 +62,7 @@ void Mpq::Close()
 	}
 }
 
-bool Mpq::IsLoaded()
+bool Mpq::isLoaded()
 {
     if (m_file)
     {
@@ -71,14 +71,14 @@ bool Mpq::IsLoaded()
     return false;
 }
 
-void Mpq::ReadHeader()
+void Mpq::readHeader()
 {
 	char *buffer = new char[8]; // A buffer big enough to read up to 64 bits of data
 	
 	m_file.read(buffer, 4);
 	if (strncmp(buffer, "MPQ", 3)) // Check that the file starts with "MPQ"
 	{
-		Close();
+		close();
 		throw ZamaraException("File is not an MPQ.",
 							  ZamaraException::FILE_NOT_MPQ);
 	}
@@ -92,11 +92,11 @@ void Mpq::ReadHeader()
 
 		// Header Size
         	m_file.read(buffer, 4);
-	        userHeaderSize = Endian::LeToH32(*((uint32_t*) buffer));
+	        userHeaderSize = Endian::leToH32(*((uint32_t*) buffer));
 
 	        // Archive Size
 	        m_file.read(buffer, 4);
-	        userArchiveSize = Endian::LeToH32(*((uint32_t*) buffer));
+	        userArchiveSize = Endian::leToH32(*((uint32_t*) buffer));
 
 		m_file.seekg(0, ios::beg);
 		
@@ -114,23 +114,18 @@ void Mpq::ReadHeader()
 
 	// Header Size
 	m_file.read(buffer, 4);
-	m_headerSize = Endian::LeToH32(*((uint32_t*) buffer));
-
-	// Archive Size
-	m_file.read(buffer, 4);
-	m_archiveSize = Endian::LeToH32(*((uint32_t*) buffer));
+	header.headerSize = Endian::leToH32(*((uint32_t*) buffer));
 
 	delete[] buffer;
-}
 
-uint32_t Mpq::GetHeaderSize()
-{
-	return m_headerSize;
-}
+	// Make a new buffer to read the rest of the header
+	buffer = new char[header.headerSize - 4]; // Already read 4 bytes of header
+	m_file.read(buffer, header.headerSize - 4);	
 
-uint32_t Mpq::GetArchiveSize()
-{
-	return m_archiveSize;
+	// Archive Size
+	header.archiveSize = Endian::leToH32(*((uint32_t*) buffer));
+
+	delete[] buffer;
 }
 
 bool Mpq::hasUserData()

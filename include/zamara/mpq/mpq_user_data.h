@@ -1,7 +1,9 @@
-#ifndef _MPQ_USER_DATA_H
-#define _MPQ_USER_DATA_H
+#ifndef ZAMARA_MPQ_MPQ_USER_DATA_H_
+#define ZAMARA_MPQ_MPQ_USER_DATA_H_
 
 #include <stdint.h>
+
+#include "zamara/mpq/mpq_structs.h"
 
 namespace zamara
 {
@@ -11,9 +13,6 @@ namespace zamara
 class MpqUserData
 {
 private:
-	uint32_t m_maxUserDataSize;
-	uint32_t m_archiveOffset;
-	uint32_t m_userDataSize;
 
 protected:
 	MpqUserData(char* userData);
@@ -21,9 +20,7 @@ protected:
 public:
 	friend class Mpq;
 
-	uint32_t getMaxUserDataSize();
-	uint32_t getArchiveOffset();
-	uint32_t getUserDataSize();
+	MpqUserDataHeader header;
 
 };
 
@@ -31,4 +28,4 @@ public:
 }
 
 
-#endif
+#endif // ZAMARA_MPQ_MPQ_USER_DATA_H_

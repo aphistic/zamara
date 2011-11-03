@@ -1,5 +1,5 @@
-#ifndef _CONFIG_TEST_H
-#define _CONFIG_TEST_H
+#ifndef ZAMARA_CONFIG_TEST_H_
+#define ZAMARA_CONFIG_TEST_H_
 
 #include "config.h"
 
@@ -12,4 +12,4 @@
 
 #define IS_BIG_ENDIAN @IS_BIG_ENDIAN@
 
-#endif
+#endif // ZAMARA_CONFIG_TEST_H_

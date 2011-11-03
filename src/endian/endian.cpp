@@ -6,7 +6,7 @@ namespace zamara
 	namespace endian
 	{
 
-bool Endian::IsBigEndian()
+bool Endian::isBigEndian()
 {
 	union {
 		uint32_t i;
@@ -16,12 +16,12 @@ bool Endian::IsBigEndian()
 	return testint.c[0] == 1;
 }
 
-uint16_t Endian::Swap16(uint16_t val)
+uint16_t Endian::swap16(uint16_t val)
 {
 	return	(val >> 8) | (val << 8);
 }
 
-uint32_t Endian::Swap32(uint32_t val)
+uint32_t Endian::swap32(uint32_t val)
 {
 	return	(val >> 24) |
 			((val << 8) & 0x00ff0000) |
@@ -29,7 +29,7 @@ uint32_t Endian::Swap32(uint32_t val)
 			(val << 24);
 }
 
-uint64_t Endian::Swap64(uint64_t val)
+uint64_t Endian::swap64(uint64_t val)
 {
 	return	(val >> 56) |
 			((val << 40)	& 0x00ff000000000000) |
@@ -41,31 +41,31 @@ uint64_t Endian::Swap64(uint64_t val)
 			(val << 56);
 }
 
-uint16_t Endian::LeToH16(uint16_t val)
+uint16_t Endian::leToH16(uint16_t val)
 {
-	if (!IsBigEndian())
+	if (!isBigEndian())
 	{
 		return val;
 	}
-	return Swap16(val);
+	return swap16(val);
 }
 
-uint32_t Endian::LeToH32(uint32_t val)
+uint32_t Endian::leToH32(uint32_t val)
 {
-	if (!IsBigEndian())
+	if (!isBigEndian())
 	{
 		return val;
 	}
-	return Swap32(val);
+	return swap32(val);
 }
 
-uint64_t Endian::LeToH64(uint64_t val)
+uint64_t Endian::leToH64(uint64_t val)
 {
-	if (!IsBigEndian())
+	if (!isBigEndian())
 	{
 		return val;
 	}
-	return Swap64(val);
+	return swap64(val);
 }
 
 	}

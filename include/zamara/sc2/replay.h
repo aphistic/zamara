@@ -1,8 +1,8 @@
-#ifndef _REPLAY_H
-#define _REPLAY_H
+#ifndef ZAMARA_SC2_REPLAY_H_
+#define ZAMARA_SC2_REPLAY_H_
 
 class Replay
 {
 };
 
-#endif
+#endif // ZAMARA_SC2_REPLAY_H_

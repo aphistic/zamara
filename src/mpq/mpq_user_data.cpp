@@ -1,3 +1,5 @@
+#include <string.h>
+
 #include "zamara/mpq/mpq_user_data.h"
 #include "zamara/endian/endian.h"
 
@@ -10,24 +12,11 @@ namespace zamara
 
 MpqUserData::MpqUserData(char* userData)
 {
-	m_maxUserDataSize = Endian::LeToH32(*((uint32_t*)(userData + 0x04)));
-	m_archiveOffset = Endian::LeToH32(*((uint32_t*)(userData + 0x08)));
-	m_userDataSize = Endian::LeToH32(*((uint32_t*)(userData + 0x0C)));
-}
+	memcpy(&header, userData, sizeof(MpqUserDataHeader));
 
-uint32_t MpqUserData::getMaxUserDataSize()
-{
-	return m_maxUserDataSize;
-}
-
-uint32_t MpqUserData::getArchiveOffset()
-{
-	return m_archiveOffset;
-}
-
-uint32_t MpqUserData::getUserDataSize()
-{
-	return m_userDataSize;
+	header.maxUserDataSize = Endian::leToH32(*((uint32_t*)(userData + 0x04)));
+	header.archiveOffset = Endian::leToH32(*((uint32_t*)(userData + 0x08)));
+	header.userDataSize = Endian::leToH32(*((uint32_t*)(userData + 0x0C)));
 }
 
 	}

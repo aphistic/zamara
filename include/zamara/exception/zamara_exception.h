@@ -1,5 +1,5 @@
-#ifndef _ZAMARA_EXCEPTION_H
-#define _ZAMARA_EXCEPTION_H
+#ifndef ZAMARA_EXCEPTION_EXCEPTION_H_
+#define ZAMARA_EXCEPTION_EXCEPTION_H_
 
 #include <string>
 #include <exception>
@@ -34,4 +34,4 @@ private:
 
 	}
 }
-#endif
+#endif // ZAMARA_EXCEPTION_EXCEPTION_H_

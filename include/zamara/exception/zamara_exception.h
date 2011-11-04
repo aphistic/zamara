@@ -4,16 +4,12 @@
 #include <string>
 #include <exception>
 
-namespace zamara
-{
-	namespace exception
-	{
+namespace zamara {
+	namespace exception {
 
-class ZamaraException : public std::exception
-{
-public:
-	enum ExceptionType
-	{
+class ZamaraException : public std::exception {
+ public:
+	enum ExceptionType {
 		FILE_NOT_FOUND	= 100,
 		FILE_NOT_MPQ	= 110
 	};
@@ -26,12 +22,12 @@ public:
 	ExceptionType exception_type() { return exception_type_; }
 	std::string message() { return message_; }
 
-private:
+ private:
         ExceptionType exception_type_;
         std::string message_;
-
 };
 
 	}
 }
+
 #endif // ZAMARA_EXCEPTION_EXCEPTION_H_

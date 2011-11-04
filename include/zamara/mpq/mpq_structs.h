@@ -3,15 +3,13 @@
 
 #include <stdint.h>
 
-struct MpqUserDataHeader
-{
+struct MpqUserDataHeader {
 	uint32_t max_user_data_size;
 	uint32_t archive_offset;
 	uint32_t user_data_size;
 };
 
-struct MpqHeader
-{
+struct MpqHeader {
 	uint32_t header_size;
 	uint32_t archive_size;
 	uint32_t format_version;

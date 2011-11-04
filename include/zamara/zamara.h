@@ -5,9 +5,10 @@
 
 #include "sc2/replay.h"
 
-class Zamara
-{
-public:
+namespace zamara {
+
+class Zamara {
+ public:
 	// Version Info
 	static int version_major();
 	static int version_minor();
@@ -16,8 +17,8 @@ public:
 
 	// Loading a Replay
 	static Replay* LoadReplay(std::string file);
-
-private:
 };
+
+}
 
 #endif // ZAMARA_ZAMARA_H_

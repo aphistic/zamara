@@ -5,23 +5,20 @@
 
 #include "zamara/mpq/mpq_structs.h"
 
-namespace zamara
-{
-	namespace mpq
-	{
+namespace zamara {
+	namespace mpq	{
 
-class MpqUserData
-{
-private:
+class MpqUserData {
+ public:
+  friend class Mpq;
+
+  MpqUserDataHeader header();
+
+ protected:
+  MpqUserData(char* userData);
+
+ private:
 	MpqUserDataHeader header_;
-
-protected:
-	MpqUserData(char* userData);
-
-public:
-	friend class Mpq;
-
-	MpqUserDataHeader header();
 };
 
 	}

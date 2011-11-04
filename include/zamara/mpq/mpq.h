@@ -9,14 +9,11 @@
 
 #include "zamara/mpq/mpq_user_data.h"
 
-namespace zamara
-{
-	namespace mpq
-	{
+namespace zamara {
+	namespace mpq {
 
-class Mpq
-{
-public:
+class Mpq {
+ public:
 	Mpq(std::string = "");
 	~Mpq();
 
@@ -32,7 +29,7 @@ public:
 	MpqHeader header();
 	MpqUserData* user_data();
 
-private:
+ private:
 	MpqHeader header_;
 	MpqUserData* user_data_;
 
@@ -41,6 +38,7 @@ private:
 
 	void ReadHeader();
 };
+
 	}
 }
 

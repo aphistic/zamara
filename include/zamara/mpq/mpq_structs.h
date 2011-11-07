@@ -12,9 +12,9 @@ struct MpqUserDataHeader {
 struct MpqHeader {
 	uint32_t header_size;
 	uint32_t archive_size;
-	uint32_t format_version;
+	uint16_t format_version;
 
-	uint8_t sector_size_shift;
+	uint16_t block_size;
 
 	uint32_t hash_table_offset;
 	uint32_t block_table_offset;

@@ -7,7 +7,7 @@ namespace zamara {
 	namespace mpq {
 
 MpqBlockEncryptor::MpqBlockEncryptor(std::string key, uint16_t offset,
-                                     uint32_t buffer, uint32_t size) {
+                                     uint32_t* buffer, uint32_t size) {
   key_ = key;
   offset_ = offset;
   buffer_ = buffer;
@@ -49,7 +49,21 @@ uint32_t MpqBlockEncryptor::HashString() {
 }
 
 void MpqBlockEncryptor::Decrypt() {
-  
+  uint32_t seed1 = HashString();
+  uint32_t seed2 = 0xEEEEEEEE;
+  std::string reasult = "";
+  size_t size = size_;
+
+  uint32_t ch;
+  for (; size >= 4; size -= 4) {
+    seed2 += encryption_table()[0x400 + (seed1 & 0xFF)];
+    seed2 &= 0xFFFFFFFF;
+    ch = *(reinterpret_cast<uint32_t*>(buffer_)) ^ (seed1 + seed2);
+    seed1 = ((~seed1 << 0x15) + 0x11111111) | (seed1 >> 0x0B);
+    seed2 = ch + seed2 + (seed2 << 5) + 3;
+
+    *buffer_++ = ch;
+  }
 }
 
 void MpqBlockEncryptor::Encrypt() {
@@ -72,19 +86,19 @@ uint16_t MpqBlockEncryptor::offset() {
   return offset_;
 }
 
-void MpqBlockEncryptor::set_buffer(uint32_t buffer) {
+void MpqBlockEncryptor::set_buffer(uint32_t* buffer) {
   buffer_ = buffer;
 }
 
-uint32_t MpqBlockEncryptor::buffer() {
+uint32_t* MpqBlockEncryptor::buffer() {
   return buffer_;
 }
 
-void MpqBlockEncryptor::set_size(uint32_t size) {
+void MpqBlockEncryptor::set_size(size_t size) {
   size_ = size;
 }
 
-uint32_t MpqBlockEncryptor::size() {
+size_t MpqBlockEncryptor::size() {
   return size_;
 }
 

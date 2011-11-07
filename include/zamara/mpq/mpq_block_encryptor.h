@@ -11,7 +11,7 @@ class MpqBlockEncryptor {
  public:
  	MpqBlockEncryptor();
 	MpqBlockEncryptor(std::string key, uint16_t offset,
-										uint32_t buffer, uint32_t size);
+										uint32_t* buffer, size_t size);
 	~MpqBlockEncryptor();
 
 	static uint32_t HashString(std::string key, uint16_t offset);
@@ -26,11 +26,11 @@ class MpqBlockEncryptor {
 	void set_offset(uint16_t offset);
 	uint16_t offset();
 
-	void set_buffer(uint32_t buffer);
-	uint32_t buffer();
+	void set_buffer(uint32_t* buffer);
+	uint32_t* buffer();
 
-	void set_size(uint32_t size);
-	uint32_t size();
+	void set_size(size_t size);
+	size_t size();
 
 	uint32_t* encryption_table();
 
@@ -40,13 +40,11 @@ class MpqBlockEncryptor {
  	uint32_t* encryption_table_;
 	std::string key_;
 	uint16_t offset_;
-	uint32_t buffer_;
-	uint32_t size_;
+	uint32_t* buffer_;
+	size_t size_;
 };
 
 	}
 }
-
-
 
 #endif // ZAMARA_MPQ_MPQ_BLOCK_ENCRYPTOR_H_

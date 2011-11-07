@@ -10,6 +10,23 @@ set (BUILD_DIR		${ZAMARA_BINARY_DIR})
 
 set (CMAKE_LIBRARY_OUTPUT_DIRECTORY ${ZAMARA_BINARY_DIR}/lib)
 
+if (USE_CLANG)
+  message("clang")
+  set (CC "clang")
+  set (CXX "clang++")
+  set (CMAKE_C_FLAGS_INIT                "-Wall -std=c99")
+  set (CMAKE_C_FLAGS_DEBUG_INIT          "-g")
+  set (CMAKE_C_FLAGS_MINSIZEREL_INIT     "-Os -DNDEBUG")
+  set (CMAKE_C_FLAGS_RELEASE_INIT        "-O4 -DNDEBUG")
+  set (CMAKE_C_FLAGS_RELWITHDEBINFO_INIT "-O2 -g")
+  set (CMAKE_CXX_FLAGS_INIT                "-Wall")
+  set (CMAKE_CXX_FLAGS_DEBUG_INIT          "-g")
+  set (CMAKE_CXX_FLAGS_MINSIZEREL_INIT     "-Os -DNDEBUG")
+  set (CMAKE_CXX_FLAGS_RELEASE_INIT        "-O4 -DNDEBUG")
+  set (CMAKE_CXX_FLAGS_RELWITHDEBINFO_INIT "-O2 -g")
+endif (USE_CLANG)
+
+
 configure_file (
 	${ZAMARA_SOURCE_DIR}/include/config.h.in
 	${ZAMARA_SOURCE_DIR}/include/config.h
@@ -21,22 +38,6 @@ set (ZAMARA_LIBRARY_DIRS ${ZAMARA_SOURCE_DIR}/lib)
 if (DEBUG)
 	set (CMAKE_CXX_FLAGS "-g -Wall")
 endif (DEBUG)
-
-if (USE_CLANG)
-	set (CC	"clang")
-	set (CXX "clang++")
-	set (CMAKE_C_FLAGS_INIT                "-Wall -std=c99")
-	set (CMAKE_C_FLAGS_DEBUG_INIT          "-g")
-	set (CMAKE_C_FLAGS_MINSIZEREL_INIT     "-Os -DNDEBUG")
-	set (CMAKE_C_FLAGS_RELEASE_INIT        "-O4 -DNDEBUG")
-	set (CMAKE_C_FLAGS_RELWITHDEBINFO_INIT "-O2 -g")
-
-	set (CMAKE_CXX_FLAGS_INIT                "-Wall")
-	set (CMAKE_CXX_FLAGS_DEBUG_INIT          "-g")
-	set (CMAKE_CXX_FLAGS_MINSIZEREL_INIT     "-Os -DNDEBUG")
-	set (CMAKE_CXX_FLAGS_RELEASE_INIT        "-O4 -DNDEBUG")
-	set (CMAKE_CXX_FLAGS_RELWITHDEBINFO_INIT "-O2 -g")
-endif (USE_CLANG)
 
 if (NOT NO_TESTS)
 	enable_testing ()

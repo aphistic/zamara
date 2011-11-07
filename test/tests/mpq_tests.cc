@@ -52,18 +52,20 @@ TEST(MpqFiles, UserDataHeader)
   ASSERT_EQ(60, testMpq.user_data()->header().user_data_size);
 }
 
-TEST(MpqFiles, ReadHeaderSize)
+TEST(MpqFiles, ReadMpqHeader)
 {
   Mpq testMpq;
   testMpq.Load(TR_1);
 
   ASSERT_EQ(44, testMpq.header().header_size);
-}
-
-TEST(MpqFiles, ReadArchiveSize)
-{
-  Mpq testMpq;
-  testMpq.Load(TR_1);
-
   ASSERT_EQ(109012, testMpq.header().archive_size);
+  ASSERT_EQ(0x01, testMpq.header().format_version);
+  ASSERT_EQ(0x03, testMpq.header().block_size);
+  ASSERT_EQ(108596, testMpq.header().hash_table_offset);
+  ASSERT_EQ(108852, testMpq.header().block_table_offset);
+  ASSERT_EQ(16, testMpq.header().hash_table_entries);
+  ASSERT_EQ(10, testMpq.header().block_table_entries);
+  ASSERT_EQ(0, testMpq.header().extended_block_table_offset);
+  ASSERT_EQ(0, testMpq.header().hash_table_offset_high);
+  ASSERT_EQ(0, testMpq.header().block_table_offset_high);
 }

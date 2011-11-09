@@ -101,10 +101,13 @@ MpqUserData* Mpq::user_data() {
 
 void Mpq::ReadHeader() {
   // A buffer big enough to read up to 64 bits of data
-  char *buffer = new char[8];
+  char* buffer = new char[8];
   
   file_.read(buffer, 4);
   if (strncmp(buffer, "MPQ", 3)) { // Check that the file starts with "MPQ"
+    // Free the buffer before we leave
+    delete [] buffer;
+
     Close();
     throw ZamaraException("File is not an MPQ.",
                 ZamaraException::FILE_NOT_MPQ);
@@ -126,7 +129,7 @@ void Mpq::ReadHeader() {
 
     file_.seekg(0, ios::beg);
     
-    char *user_buffer = new char[user_archive_size];
+    char* user_buffer = new char[user_archive_size];
 
     file_.read(user_buffer, user_archive_size);
 
@@ -134,7 +137,7 @@ void Mpq::ReadHeader() {
 
     file_.read(buffer, 4);
 
-    delete[] user_buffer;
+    delete [] user_buffer;
   }
 
   // Header Size
@@ -142,7 +145,7 @@ void Mpq::ReadHeader() {
   header_.header_size = Endian::LeToH32(
       *(reinterpret_cast<uint32_t*>(buffer)));
 
-  delete[] buffer;
+  delete [] buffer;
 
   // Make a new buffer to read the rest of the header
   buffer = new char[header_.header_size - 4];  // Already read 4 bytes of header
@@ -185,7 +188,7 @@ void Mpq::ReadHeader() {
     archive_offset_ = user_data()->header().archive_offset;  
   }
 
-  delete[] buffer;
+  delete [] buffer;
 }
 
 void Mpq::ReadHashTable() {
@@ -247,11 +250,7 @@ void Mpq::ReadFiles() {
   MpqHashEntry* list = GetHashEntry("(listfile)");
 
   if (list != NULL) {
-    std::cout << "Got list file" << std::endl;
     MpqBlockEntry block = block_table_[list->block_index()];
-
-    std::cout << block.file_position() << " - ";
-    std::cout << block.flags() << std::endl;
   }
 }
 

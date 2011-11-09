@@ -13,6 +13,9 @@ include_directories (
 	../include
 	)
 
+find_package (ZLIB REQUIRED)
+find_package (BZip2 REQUIRED)
+
 if (STATIC)
 	add_library(zamara STATIC ${CPP_SRC})
 else ()

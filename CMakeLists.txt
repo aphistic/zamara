@@ -11,7 +11,6 @@ set (BUILD_DIR		${ZAMARA_BINARY_DIR})
 set (CMAKE_LIBRARY_OUTPUT_DIRECTORY ${ZAMARA_BINARY_DIR}/lib)
 
 if (USE_CLANG)
-  message("clang")
   set (CC "clang")
   set (CXX "clang++")
   set (CMAKE_C_FLAGS_INIT                "-Wall -std=c99")

@@ -251,6 +251,17 @@ void Mpq::ReadFiles() {
 
   if (list != NULL) {
     MpqBlockEntry block = block_table_[list->block_index()];
+
+    char* in_buffer = new char[block.compressed_size()];
+    char* out_buffer = new char[block.file_size()];
+
+    file_.seekg(archive_offset_ + block.file_position(), ios::beg);
+    file_.read(in_buffer, block.compressed_size());
+
+    std::cout << out_buffer << std::endl;
+    
+    delete [] in_buffer;
+    delete [] out_buffer;
   }
 }
 

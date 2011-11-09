@@ -37,12 +37,12 @@ uint32_t MpqBlockEncryptor::HashString() {
   std::string ucase(key_.length(), '\0');
   std::transform(key_.begin(), key_.end(), ucase.begin(), ::toupper);
 
-  for (int idx = 0; idx < ucase.length(); idx++)
+  for (uint32_t idx = 0; idx < ucase.length(); idx++)
   {
     char current_char = ucase[idx];
     uint32_t value = encryption_table()[offset_ + current_char];
     seed1 = (value ^ (seed1 + seed2)) & 0xFFFFFFFF;
-    seed2 = current_char + seed1 + seed2 + (seed2 << 5) + 3 & 0xFFFFFFFF;
+    seed2 = (current_char + seed1 + seed2 + (seed2 << 5) + 3) & 0xFFFFFFFF;
   }
 
   return seed1;

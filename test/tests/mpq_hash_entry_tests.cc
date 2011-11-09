@@ -1,12 +1,17 @@
 #include "gtest/gtest.h"
 
+#include "zamara/endian/endian.h"
 #include "zamara/mpq/mpq_hash_entry.h"
 
 using namespace zamara::mpq;
+using zamara::endian::Endian;
 
 TEST(MpqHashEntry, LoadEntry) {
   uint32_t decrypted_table[] = {
-    0xD38437CB, 0x07DFEAEC, 0x00000000, 0x00000009
+    Endian::LeToH32(0xD38437CB),
+    Endian::LeToH32(0x07DFEAEC),
+    Endian::LeToH32(0x00000000),
+    Endian::LeToH32(0x00000009)
   };
 
   MpqHashEntry entry;

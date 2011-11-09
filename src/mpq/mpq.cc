@@ -152,10 +152,10 @@ void Mpq::ReadHeader() {
   header_.archive_size = Endian::LeToH32(
       *(reinterpret_cast<uint32_t*>(buffer)));
 
-  header_.format_version = Endian::LeToH32(
+  header_.format_version = Endian::LeToH16(
       *(reinterpret_cast<uint16_t*>(buffer + 0x04)));
   
-  header_.block_size = Endian::LeToH32(
+  header_.block_size = Endian::LeToH16(
       *(reinterpret_cast<uint16_t*>(buffer + 0x06)));
 
   header_.hash_table_offset = Endian::LeToH32(
@@ -170,13 +170,13 @@ void Mpq::ReadHeader() {
   header_.block_table_entries = Endian::LeToH32(
       *(reinterpret_cast<uint32_t*>(buffer + 0x14)));
 
-  header_.extended_block_table_offset = Endian::LeToH32(
+  header_.extended_block_table_offset = Endian::LeToH64(
       *(reinterpret_cast<uint64_t*>(buffer + 0x18)));
   
-  header_.hash_table_offset_high = Endian::LeToH32(
+  header_.hash_table_offset_high = Endian::LeToH16(
       *(reinterpret_cast<uint16_t*>(buffer + 0x20)));
 
-  header_.block_table_offset_high = Endian::LeToH32(
+  header_.block_table_offset_high = Endian::LeToH16(
       *(reinterpret_cast<uint16_t*>(buffer + 0x22)));
 
   archive_offset_ = 0x00;

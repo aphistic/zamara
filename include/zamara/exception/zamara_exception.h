@@ -10,8 +10,9 @@ namespace zamara {
 class ZamaraException : public std::exception {
  public:
 	enum ExceptionType {
-		FILE_NOT_FOUND	= 100,
-		FILE_NOT_MPQ	= 110
+		FILE_NOT_FOUND	    = 100,
+		FILE_NOT_MPQ	      = 110,
+    UNKNOWN_COMPRESSION = 200
 	};
 
 	ZamaraException(const std::string& message, ExceptionType type) throw()

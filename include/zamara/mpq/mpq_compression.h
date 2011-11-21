@@ -13,6 +13,11 @@ class MpqCompression {
 
 };
 
+enum MpqCompressFlag {
+  MPQ_COMPRESS_NONE   = 0x00,
+  MPQ_COMPRESS_BZ2    = 0x10
+};
+
   }
 }
 

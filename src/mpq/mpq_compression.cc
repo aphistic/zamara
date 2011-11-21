@@ -1,6 +1,7 @@
-#include "zamara/mpq/mpq_compression.h"
-
 #include <bzlib.h>
+#include <iostream>
+
+#include "zamara/mpq/mpq_compression.h"
 
 namespace zamara {
   namespace mpq {
@@ -22,7 +23,8 @@ int32_t MpqCompression::DecompressBzip2(char* in_buf, uint32_t in_size,
   strm.next_out  = out_buf;
   strm.avail_out = out_size;
 
-  while (BZ2_bzDecompress(&strm) != BZ_STREAM_END);
+  while ((result = BZ2_bzDecompress(&strm)) != BZ_STREAM_END) {
+  }
 
   result = strm.total_out_lo32;
 

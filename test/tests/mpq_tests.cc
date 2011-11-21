@@ -41,8 +41,7 @@ TEST(MpqFiles, OpenFileNotMpq)
 }
 
 // User Data Tets
-TEST(MpqFiles, UserDataHeader)
-{
+TEST(MpqFiles, UserDataHeader) {
   Mpq testMpq;
   testMpq.Load(TR_1);
 
@@ -52,8 +51,7 @@ TEST(MpqFiles, UserDataHeader)
   ASSERT_EQ(60, testMpq.user_data()->header().user_data_size);
 }
 
-TEST(MpqFiles, ReadMpqHeader)
-{
+TEST(MpqFiles, ReadMpqHeader) {
   Mpq testMpq;
   testMpq.Load(TR_1);
 
@@ -68,4 +66,26 @@ TEST(MpqFiles, ReadMpqHeader)
   ASSERT_EQ(0, testMpq.header().extended_block_table_offset);
   ASSERT_EQ(0, testMpq.header().hash_table_offset_high);
   ASSERT_EQ(0, testMpq.header().block_table_offset_high);
+}
+
+TEST(MpqFiles, ReadFiles) {
+  Mpq testMpq;
+  testMpq.Load(TR_1);
+
+  ASSERT_STREQ("replay.attributes.events",
+               testMpq.files()[0].filename().c_str());
+  ASSERT_STREQ("replay.details",
+               testMpq.files()[1].filename().c_str());
+  ASSERT_STREQ("replay.game.events",
+               testMpq.files()[2].filename().c_str());
+  ASSERT_STREQ("replay.initData",
+               testMpq.files()[3].filename().c_str());
+  ASSERT_STREQ("replay.load.info",
+               testMpq.files()[4].filename().c_str());
+  ASSERT_STREQ("replay.message.events",
+               testMpq.files()[5].filename().c_str());
+  ASSERT_STREQ("replay.smartcam.events",
+               testMpq.files()[6].filename().c_str());
+  ASSERT_STREQ("replay.sync.events",
+               testMpq.files()[7].filename().c_str());
 }

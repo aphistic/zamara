@@ -4,6 +4,7 @@ cmake_minimum_required (VERSION 2.8)
 file (GLOB CPP_SRC
 	"endian/*.cc"
 	"exception/*.cc"
+	"file/*.cc"
 	"mpq/*.cc"
 	"sc2/*.cc"
 	"*.cc"

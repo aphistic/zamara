@@ -4,13 +4,13 @@
 #include <string>
 #include <string.h>
 #include <stdint.h>
-#include <iostream>
 #include <fstream>
+#include <vector>
 
+#include "zamara/mpq/mpq_file.h"
 #include "zamara/mpq/mpq_user_data.h"
 #include "zamara/mpq/mpq_hash_entry.h"
 #include "zamara/mpq/mpq_block_entry.h"
-#include "zamara/mpq/mpq_file.h"
 
 namespace zamara {
 	namespace mpq {
@@ -30,7 +30,7 @@ class Mpq {
 	MpqHeader header();
 	MpqUserData* user_data();
 
-	MpqFile* files();
+	std::vector<MpqFile> files();
 
  private:
 	void ReadHeader();
@@ -42,10 +42,10 @@ class Mpq {
 	MpqUserData* user_data_;
 	uint32_t archive_offset_;
 
-	MpqHashEntry* hash_table_;
-	MpqBlockEntry* block_table_;
+	std::vector<MpqHashEntry> hash_table_;
+	std::vector<MpqBlockEntry> block_table_;
 
-	MpqFile* files_;
+	std::vector<MpqFile> files_;
 
 	std::string file_path_;
 	std::ifstream file_;
@@ -53,6 +53,5 @@ class Mpq {
 
 	}
 }
-
 
 #endif // ZAMARA_MPQ_MPQ_H_

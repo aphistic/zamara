@@ -1,12 +1,13 @@
 #include <fstream>
 #include <iostream>
+#include <string.h>
 
 #include "zamara/mpq/mpq.h"
 #include "zamara/mpq/mpq_block_encryptor.h"
 #include "zamara/endian/endian.h"
+#include "zamara/mpq/mpq_compression.h"
 #include "zamara/exception/zamara_exception.h"
 
-using std::ios;
 using zamara::endian::Endian;
 using zamara::exception::ZamaraException;
 
@@ -16,19 +17,10 @@ namespace zamara {
 Mpq::Mpq(std::string file_path) {
   user_data_ = 0;
   file_path_ = file_path;
-
-  hash_table_ = 0;
-  block_table_ = 0;
-
-  files_= 0;
 }
 
 Mpq::~Mpq() {
   delete user_data_;
-  delete [] hash_table_;
-  delete [] block_table_;
-
-  delete [] files_;
 
   if (IsLoaded()) {
     Close();
@@ -48,7 +40,7 @@ void Mpq::Load() {
 
   if (!IsLoaded()) {
     throw ZamaraException("Could not find file.",
-                ZamaraException::FILE_NOT_FOUND);
+                          ZamaraException::FILE_NOT_FOUND);
   }
 
   ReadHeader();
@@ -99,6 +91,10 @@ MpqUserData* Mpq::user_data() {
   return user_data_;
 }
 
+std::vector<MpqFile> Mpq::files() {
+  return files_;
+}
+
 void Mpq::ReadHeader() {
   // A buffer big enough to read up to 64 bits of data
   char* buffer = new char[8];
@@ -127,7 +123,7 @@ void Mpq::ReadHeader() {
     file_.read(buffer, 4);
     user_archive_size = Endian::LeToH32(*(reinterpret_cast<uint32_t*>(buffer)));
 
-    file_.seekg(0, ios::beg);
+    file_.seekg(0, std::ios::beg);
     
     char* user_buffer = new char[user_archive_size];
 
@@ -194,11 +190,10 @@ void Mpq::ReadHeader() {
 void Mpq::ReadHashTable() {
   uint32_t hash_entries = header().hash_table_entries;
 
-  delete [] hash_table_;
-  hash_table_ = new MpqHashEntry [hash_entries];
+  hash_table_.clear();
 
   file_.seekg(archive_offset_ +
-              header().hash_table_offset, ios::beg);
+              header().hash_table_offset, std::ios::beg);
   
   // Each entry is the size of 4x uint32_t's, giving
   // 16 bytes.  Read a buffer big enough for the entire hash table
@@ -213,7 +208,9 @@ void Mpq::ReadHashTable() {
   encryptor.Decrypt();
 
   for (uint32_t idx = 0; idx < hash_entries; idx++) {
-    hash_table_[idx].Load(buffer + (idx * 16));
+    MpqHashEntry entry;
+    entry.Load(buffer + (idx * 16));
+    hash_table_.push_back(entry);
   }
 
   delete [] buffer;
@@ -222,11 +219,10 @@ void Mpq::ReadHashTable() {
 void Mpq::ReadBlockTable() {
   uint32_t block_entries = header().block_table_entries;
 
-  delete [] block_table_;
-  block_table_ = new MpqBlockEntry [block_entries];
+  block_table_.clear();
 
   file_.seekg(archive_offset_ +
-              header().block_table_offset, ios::beg);
+              header().block_table_offset, std::ios::beg);
 
   // Same as the hash table, each entry is the size of 4x
   // uint32_t.
@@ -240,7 +236,9 @@ void Mpq::ReadBlockTable() {
   encryptor.Decrypt();
 
   for (uint32_t idx = 0; idx < block_entries; idx++) {
-    block_table_[idx].Load(buffer + (idx * 16));
+    MpqBlockEntry entry;
+    entry.Load(buffer + (idx * 16));
+    block_table_.push_back(entry);
   }
 
   delete [] buffer;
@@ -255,10 +253,37 @@ void Mpq::ReadFiles() {
     char* in_buffer = new char[block.compressed_size()];
     char* out_buffer = new char[block.file_size()];
 
-    file_.seekg(archive_offset_ + block.file_position(), ios::beg);
+    file_.seekg(archive_offset_ + block.file_position(), std::ios::beg);
     file_.read(in_buffer, block.compressed_size());
 
-    std::cout << out_buffer << std::endl;
+    MpqCompression::DecompressBzip2(in_buffer, block.compressed_size(),
+                                    out_buffer, block.file_size());
+
+    std::string files(out_buffer, block.file_size());
+
+    // Clear out any files from a previously loaded MPQ
+    files_.clear();
+
+    int file_index = 0;
+    uint32_t file_position = 0;
+    while (file_position < files.length())
+    {
+      size_t name_end = files.find("\r\n", file_position);
+      std::string filename = files.substr(file_position,
+                                          name_end - file_position);
+      MpqHashEntry* hash_entry = GetHashEntry(filename);
+
+      if (hash_entry != NULL)
+      {
+        MpqFile file(&file_, archive_offset_);
+        file.Load(filename, hash_entry,
+                  &(block_table_[hash_entry->block_index()]));
+        files_.push_back(file);
+      }
+                                      
+      file_position = name_end + 2;
+      file_index++;
+    }
     
     delete [] in_buffer;
     delete [] out_buffer;

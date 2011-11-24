@@ -39,7 +39,7 @@ void MpqFile::OpenFile() {
   archive_->read(in_data, block_entry_->compressed_size());
 
   if ((block_entry_->flags() & MPQ_FILE_COMPRESS) == MPQ_FILE_COMPRESS) {
-    if ((*in_data & MPQ_COMPRESS_BZ2) == MPQ_COMPRESS_BZ2) { 
+    if ((*in_data & MPQ_COMPRESS_BZ2) == MPQ_COMPRESS_BZ2) {
       MpqCompression::DecompressBzip2(in_data, block_entry_->compressed_size(),
                                       file_data_, block_entry_->file_size());
     }

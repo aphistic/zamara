@@ -62,6 +62,30 @@ bool Mpq::IsLoaded() {
     return false;
 }
 
+MpqFile Mpq::GetFile(std::string filename) {
+  for (uint32_t idx = 0; idx < files().size(); idx++) {
+    if (files()[idx].filename() == filename)
+    {
+      return files()[idx];
+    }
+  }
+
+  throw ZamaraException("File not found in MPQ archive.",
+                        ZamaraException::MPQ_FILE_NOT_FOUND);
+}
+
+MpqHeader Mpq::header() {
+  return header_;
+}
+
+MpqUserData* Mpq::user_data() {
+  return user_data_;
+}
+
+std::vector<MpqFile> Mpq::files() {
+  return files_;
+}
+
 MpqHashEntry* Mpq::GetHashEntry(std::string filename) {
   uint32_t hash_a = MpqBlockEncryptor::HashString(filename, 0x100);
   uint32_t hash_b = MpqBlockEncryptor::HashString(filename, 0x200);
@@ -81,18 +105,6 @@ bool Mpq::HasUserData() {
     return true;
   }
   return false;
-}
-
-MpqHeader Mpq::header() {
-  return header_;
-}
-
-MpqUserData* Mpq::user_data() {
-  return user_data_;
-}
-
-std::vector<MpqFile> Mpq::files() {
-  return files_;
 }
 
 void Mpq::ReadHeader() {

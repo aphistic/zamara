@@ -24,8 +24,8 @@ class Mpq {
 	void Load();
 	void Close();
 	bool IsLoaded();
-	MpqHashEntry* GetHashEntry(std::string filename);
-	bool HasUserData();
+
+	MpqFile GetFile(std::string filename);
 
 	MpqHeader header();
 	MpqUserData* user_data();
@@ -33,6 +33,9 @@ class Mpq {
 	std::vector<MpqFile> files();
 
  private:
+ 	MpqHashEntry* GetHashEntry(std::string filename);
+	bool HasUserData();
+
 	void ReadHeader();
 	void ReadHashTable();
 	void ReadBlockTable();

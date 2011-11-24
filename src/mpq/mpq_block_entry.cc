@@ -1,3 +1,5 @@
+#include <iostream>
+
 #include "zamara/endian/endian.h"
 #include "zamara/mpq/mpq_block_entry.h"
 

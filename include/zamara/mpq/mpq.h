@@ -17,7 +17,7 @@ namespace zamara {
 
 class Mpq {
  public:
-	Mpq(std::string = "");
+	Mpq();
 	~Mpq();
 
 	void Load(std::string filename);

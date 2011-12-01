@@ -30,6 +30,8 @@ TEST(Sc2Data, DeserializeReplayDetails) {
   ASSERT_TRUE(value[0][0].IsKeyValue());
   ASSERT_TRUE(value[0][0][0].IsString());
   ASSERT_STREQ("TehPartE", value[0][0][0].AsString().c_str()); // Name
+  ASSERT_TRUE(value[0][0][1][4].IsInt64());
+  ASSERT_EQ(278960, value[0][0][1][3].AsInt64());  // Player Id
   ASSERT_TRUE(value[0][0][2].IsString());
   ASSERT_STREQ("Protoss", value[0][0][2].AsString().c_str()); // Race
   ASSERT_TRUE(value[0][0][3].IsKeyValue());
@@ -52,6 +54,8 @@ TEST(Sc2Data, DeserializeReplayDetails) {
   ASSERT_TRUE(value[0][1].IsKeyValue());
   ASSERT_TRUE(value[0][1][0].IsString());
   ASSERT_STREQ("totsgerber", value[0][1][0].AsString().c_str()); // Name
+  ASSERT_TRUE(value[0][1][1][4].IsInt64());
+  ASSERT_EQ(297523, value[0][1][1][3].AsInt64()); // Player Id
   ASSERT_TRUE(value[0][1][2].IsString());
   ASSERT_STREQ("Zerg", value[0][1][2].AsString().c_str()); // Race
   ASSERT_TRUE(value[0][1][3].IsKeyValue());
@@ -74,6 +78,8 @@ TEST(Sc2Data, DeserializeReplayDetails) {
   ASSERT_TRUE(value[0][2].IsKeyValue());
   ASSERT_TRUE(value[0][2][0].IsString());
   ASSERT_STREQ("David", value[0][2][0].AsString().c_str()); // Name
+  ASSERT_TRUE(value[0][2][1][4].IsInt64());
+  ASSERT_EQ(549011, value[0][2][1][3].AsInt64()); // Player Id
   ASSERT_TRUE(value[0][2][2].IsString());
   ASSERT_STREQ("Terran", value[0][2][2].AsString().c_str()); // Race
   ASSERT_TRUE(value[0][2][3].IsKeyValue());
@@ -96,6 +102,8 @@ TEST(Sc2Data, DeserializeReplayDetails) {
   ASSERT_TRUE(value[0][3].IsKeyValue());
   ASSERT_TRUE(value[0][3][0].IsString());
   ASSERT_STREQ("Steven", value[0][3][0].AsString().c_str()); // Name
+  ASSERT_TRUE(value[0][3][1][4].IsInt64());
+  ASSERT_EQ(752194, value[0][3][1][3].AsInt64()); // Player Id
   ASSERT_TRUE(value[0][3][2].IsString());
   ASSERT_STREQ("Terran", value[0][3][2].AsString().c_str()); // Race
   ASSERT_TRUE(value[0][3][3].IsKeyValue());
@@ -125,9 +133,9 @@ TEST(Sc2Data, DeserializeReplayDetails) {
 
   // Datetime of game
   ASSERT_TRUE(value[5].IsInt64());
-  ASSERT_EQ(18446744073372380903U, (uint64_t) value[5].AsInt64());
+  ASSERT_EQ(129250222145273475, (uint64_t) value[5].AsInt64());
 
   // Timezone offset
   ASSERT_TRUE(value[6].IsInt64());
-  ASSERT_EQ(18446744073590956000U, (uint64_t) value[6].AsInt64());
+  ASSERT_EQ(-144000000000, (int64_t) value[6].AsInt64());
 }

@@ -4,8 +4,6 @@
 #include <stdint.h>
 #include <string>
 
-#include "sc2/replay.h"
-
 namespace zamara {
 
 class Zamara {
@@ -18,6 +16,13 @@ class Zamara {
 
 	// Loading a Replay
 	//static Replay* LoadReplay(std::string file);
+};
+
+struct Color {
+  uint32_t A;
+  uint32_t R;
+  uint32_t G;
+  uint32_t B;
 };
 
 }

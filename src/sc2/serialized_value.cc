@@ -1,4 +1,6 @@
 #include <iostream>
+#include <stdio.h>
+#include <string.h>
 
 #include "zamara/exception/zamara_exception.h"
 #include "zamara/sc2/serialized_value.h"
@@ -184,15 +186,15 @@ size_t SerializedValue::LoadIntVlf(char* data) {
 }
 
 size_t SerializedValue::ReadIntVlf(char* data, int64_t* result) {
-  char current_byte = *data;
-  int64_t value = (current_byte & 0x7F);
-  int32_t byte_count = 1;
+  unsigned char current_byte;
+  int32_t byte_count = 0;
+  int64_t value = 0;
 
-  while ((current_byte & 0x80) > 0) {
+  do {
     current_byte = *(data + byte_count);
-    value += (current_byte & 0x7F) << (7 * byte_count);
+    value += (int64_t) (current_byte & 0x7F) << (7 * byte_count);
     byte_count++;
-  }
+  } while ((current_byte & 0x80) > 0);
 
   *result = (value & 1) ? -(value >> 1) : (value >> 1);
 

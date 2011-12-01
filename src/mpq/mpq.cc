@@ -14,9 +14,8 @@ using zamara::exception::ZamaraException;
 namespace zamara {
   namespace mpq {
 
-Mpq::Mpq(std::string file_path) {
+Mpq::Mpq() {
   user_data_ = 0;
-  file_path_ = file_path;
 }
 
 Mpq::~Mpq() {

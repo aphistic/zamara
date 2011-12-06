@@ -1,3 +1,5 @@
+#include <stdexcept>
+
 #include "config_test.h"
 
 #include "gtest/gtest.h"
@@ -8,6 +10,28 @@
 using namespace std;
 using namespace zamara::mpq;
 using namespace zamara::sc2;
+
+TEST(Sc2Data, SerializedValueIndexOutOfRange) {
+  Mpq testMpq;
+  testMpq.Load(TR_1);
+
+  MpqFile file = testMpq.GetFile("replay.details");
+
+  file.OpenFile();
+  SerializedValue value;
+  value.Load(file.FileData());
+
+  // Make sure the [] operator throws an exception if the index is
+  // below 0 or above the highest index
+
+  ASSERT_THROW(value[-1], out_of_range);
+  ASSERT_NO_THROW(value[0]);
+
+  ASSERT_EQ(14, value.size());
+
+  ASSERT_NO_THROW(value[13]);
+  ASSERT_THROW(value[14], out_of_range);
+}
 
 TEST(Sc2Data, DeserializeReplayDetails) {
   Mpq testMpq;
@@ -30,7 +54,7 @@ TEST(Sc2Data, DeserializeReplayDetails) {
   ASSERT_TRUE(value[0][0].IsKeyValue());
   ASSERT_TRUE(value[0][0][0].IsString());
   ASSERT_STREQ("TehPartE", value[0][0][0].AsString().c_str()); // Name
-  ASSERT_TRUE(value[0][0][1][4].IsInt64());
+  ASSERT_TRUE(value[0][0][1][3].IsInt64());
   ASSERT_EQ(278960, value[0][0][1][3].AsInt64());  // Player Id
   ASSERT_TRUE(value[0][0][2].IsString());
   ASSERT_STREQ("Protoss", value[0][0][2].AsString().c_str()); // Race
@@ -50,11 +74,13 @@ TEST(Sc2Data, DeserializeReplayDetails) {
   ASSERT_TRUE(value[0][0][8].IsInt64());
   ASSERT_EQ(0, value[0][0][8].AsInt64()); // Outcome
 
+
+
   // Second Player
   ASSERT_TRUE(value[0][1].IsKeyValue());
   ASSERT_TRUE(value[0][1][0].IsString());
   ASSERT_STREQ("totsgerber", value[0][1][0].AsString().c_str()); // Name
-  ASSERT_TRUE(value[0][1][1][4].IsInt64());
+  ASSERT_TRUE(value[0][1][1][3].IsInt64());
   ASSERT_EQ(297523, value[0][1][1][3].AsInt64()); // Player Id
   ASSERT_TRUE(value[0][1][2].IsString());
   ASSERT_STREQ("Zerg", value[0][1][2].AsString().c_str()); // Race
@@ -78,7 +104,7 @@ TEST(Sc2Data, DeserializeReplayDetails) {
   ASSERT_TRUE(value[0][2].IsKeyValue());
   ASSERT_TRUE(value[0][2][0].IsString());
   ASSERT_STREQ("David", value[0][2][0].AsString().c_str()); // Name
-  ASSERT_TRUE(value[0][2][1][4].IsInt64());
+  ASSERT_TRUE(value[0][2][1][3].IsInt64());
   ASSERT_EQ(549011, value[0][2][1][3].AsInt64()); // Player Id
   ASSERT_TRUE(value[0][2][2].IsString());
   ASSERT_STREQ("Terran", value[0][2][2].AsString().c_str()); // Race
@@ -102,7 +128,7 @@ TEST(Sc2Data, DeserializeReplayDetails) {
   ASSERT_TRUE(value[0][3].IsKeyValue());
   ASSERT_TRUE(value[0][3][0].IsString());
   ASSERT_STREQ("Steven", value[0][3][0].AsString().c_str()); // Name
-  ASSERT_TRUE(value[0][3][1][4].IsInt64());
+  ASSERT_TRUE(value[0][3][1][3].IsInt64());
   ASSERT_EQ(752194, value[0][3][1][3].AsInt64()); // Player Id
   ASSERT_TRUE(value[0][3][2].IsString());
   ASSERT_STREQ("Terran", value[0][3][2].AsString().c_str()); // Race

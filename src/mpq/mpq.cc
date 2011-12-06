@@ -20,6 +20,10 @@ Mpq::Mpq() {
 
 Mpq::~Mpq() {
   delete user_data_;
+  
+  hash_table_.clear();
+  block_table_.clear();
+  files_.clear();
 
   if (IsLoaded()) {
     Close();

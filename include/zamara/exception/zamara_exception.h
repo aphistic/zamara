@@ -14,7 +14,7 @@ class ZamaraException : public std::exception {
 		FILE_NOT_MPQ	      	= 110,
     UNKNOWN_COMPRESSION 	= 200,
     UNKNOWN_SERIALIZATION	= 300,
-    MPQ_FILE_NOT_FOUND		=	400
+    MPQ_FILE_NOT_FOUND		=	400 
 	};
 
 	ZamaraException(const std::string& message, ExceptionType type) throw()

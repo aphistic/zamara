@@ -5,7 +5,7 @@ namespace zamara {
 
 void Player::Load(SerializedValue player_data) {
   name_ = player_data[0].AsString();
-  id_ = player_data[1][4].AsInt64();
+  id_ = player_data[1][3].AsInt64();
   race_ = player_data[2].AsString();
   color_.A = player_data[3][0].AsInt64();
   color_.R = player_data[3][1].AsInt64();

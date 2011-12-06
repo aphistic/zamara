@@ -2,6 +2,7 @@
 
 #include "zamara/mpq/mpq_file.h"
 #include "zamara/sc2/serialized_value.h"
+#include "zamara/sc2/replay_attribute.h"
 
 using zamara::mpq::MpqFile;
 
@@ -13,6 +14,7 @@ Replay::Replay() {
 
 Replay::~Replay() {
   players_.clear();
+  mpq_.Close();
 }
 
 void Replay::Load(std::string file_path) {
@@ -21,6 +23,7 @@ void Replay::Load(std::string file_path) {
   mpq_.Load(file_path);
 
   LoadDetails();
+  LoadAttributes();
 }
 
 std::vector<std::tr1::shared_ptr<Player> > Replay::players() {
@@ -61,10 +64,12 @@ void Replay::LoadDetails() {
   // Load timestamp and convert it to unix time
   timestamp_ = (uint64_t) details[5].AsInt64();
   timestamp_ = (timestamp_ - 116444735995904000) / 10000000;
+
+  details_file.CloseFile();
 }
 
 void Replay::LoadAttributes() {
-  
+  MpqFile attr_file = mpq_.GetFile("replay.attributes.events");
 }
 
   }

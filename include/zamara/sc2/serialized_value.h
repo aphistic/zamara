@@ -44,7 +44,7 @@ class SerializedValue {
   /*
    * Operators
    */
-  SerializedValue operator[] (int key);
+  SerializedValue operator[] (size_t key);
 
   std::vector<std::tr1::shared_ptr<SerializedValue> > members();
   std::vector<int8_t> keys();

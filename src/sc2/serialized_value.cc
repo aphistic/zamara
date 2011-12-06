@@ -1,4 +1,5 @@
 #include <iostream>
+#include <stdexcept>
 #include <stdio.h>
 #include <string.h>
 
@@ -63,8 +64,13 @@ int64_t SerializedValue::AsInt64() {
   return (int64_t) int_value_;
 }
 
-SerializedValue SerializedValue::operator[] (int key) {
-  return *(members()[key]);
+SerializedValue SerializedValue::operator[] (size_t key) {
+  if (key < 0 || key >= members_.size()) {
+    throw std::out_of_range("Supplied index is out of range.");
+  }
+
+  std::tr1::shared_ptr<SerializedValue> val = members_[key];
+  return *val;
 }
 
 std::vector<std::tr1::shared_ptr<SerializedValue> > SerializedValue::members() {

@@ -39,7 +39,7 @@ class AttributesFile {
   
   void Load(char* data);
 
-  ReplayAttribute operator[] (uint32_t key);
+  ReplayAttribute operator[] (size_t key);
 
   size_t count();
 

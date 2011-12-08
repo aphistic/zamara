@@ -74,8 +74,6 @@ TEST(Sc2Data, DeserializeReplayDetails) {
   ASSERT_TRUE(value[0][0][8].IsInt64());
   ASSERT_EQ(0, value[0][0][8].AsInt64()); // Outcome
 
-
-
   // Second Player
   ASSERT_TRUE(value[0][1].IsKeyValue());
   ASSERT_TRUE(value[0][1][0].IsString());

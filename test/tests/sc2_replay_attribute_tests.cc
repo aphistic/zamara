@@ -70,7 +70,7 @@ TEST(Sc2Data, ReadAttributes) {
   ASSERT_EQ(0x0BBB, attr_file[24].id());
   ASSERT_EQ(0x01, attr_file[24].player_id());
   ASSERT_EQ(0x20313030, attr_file[24].value());
-  ASSERT_STREQ(" 100", attr_file[24].str_value().c_str());
+  ASSERT_STREQ("100", attr_file[24].str_value().c_str());
 
   ASSERT_EQ(0x000003E7, attr_file[28].header());
   ASSERT_EQ(0x07D6, attr_file[28].id());

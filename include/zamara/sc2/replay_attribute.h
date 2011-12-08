@@ -16,6 +16,9 @@ class ReplayAttribute {
  public:
   size_t Load(char* data);
 
+  bool IsGlobal();
+  bool IsPlayer();
+
   uint32_t header();
   uint32_t id();
   uint8_t player_id();

@@ -13,6 +13,33 @@ using zamara::mpq::Mpq;
 namespace zamara {
   namespace sc2 {
 
+enum GameType {
+  TYPE_UNKNOWN,
+  TYPE_1V1,
+  TYPE_2V2,
+  TYPE_3V3,
+  TYPE_4V4,
+  TYPE_FFA,
+  TYPE_6V6,
+  TYPE_CUSTOM
+};
+
+enum GameSpeed {
+  SPEED_UNKNOWN,
+  SPEED_SLOWER,
+  SPEED_SLOW,
+  SPEED_NORMAL,
+  SPEED_FAST,
+  SPEED_FASTER
+};
+
+enum GameCategory {
+  CATEGORY_UNKNOWN,
+  CATEGORY_PRIVATE,
+  CATEGORY_LADDER,
+  CATEGORY_PUBLIC
+};
+
 class Replay {
  public:
   Replay();
@@ -25,9 +52,21 @@ class Replay {
   uint64_t timestamp();
   int64_t timezone_offset();
 
+  GameType type();
+  void set_type(GameType type);
+
+  GameSpeed speed();
+  void set_speed(GameSpeed speed);
+
+  GameCategory category();
+  void set_category(GameCategory category);
+
  private:
   void LoadDetails();
   void LoadAttributes();
+
+  void LoadPlayerAttribute(ReplayAttribute attr);
+  void LoadGlobalAttribute(ReplayAttribute attr);
 
   std::string file_path_;
   Mpq mpq_;
@@ -36,6 +75,10 @@ class Replay {
   std::string map_name_;
   uint64_t timestamp_;
   int64_t timezone_offset_;
+
+  GameType type_;
+  GameSpeed speed_;
+  GameCategory category_;
 };
 
   }

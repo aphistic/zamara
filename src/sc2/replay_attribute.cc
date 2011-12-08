@@ -20,8 +20,17 @@ size_t ReplayAttribute::Load(char* data) {
   uint8_t offset = -1;
   while (str_data[++offset] == 0x00);
   str_value_ = std::string(str_data + offset, sizeof(temp_value) - offset);
+  str_value_.erase(std::remove_if(str_value_.begin(), str_value_.end(), ::isspace), str_value_.end());
 
   return 13; // At this point each attribute is always 13 bytes
+}
+
+bool ReplayAttribute::IsGlobal() {
+  return player_id() == 0x10;
+}
+
+bool ReplayAttribute::IsPlayer() {
+  return !IsGlobal();
 }
 
 uint32_t ReplayAttribute::header() {

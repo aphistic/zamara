@@ -61,6 +61,21 @@ Include Debug Symbols:
 
     test/bin/ZAMARA_test
 
+Planned Features
+----------------
+
+* Parsing for actions performed in the replay
+* Parsing for message actions
+* Stat calculations such as APM, EAPM
+
+Known Issues
+------------
+
+* The API will be changing a lot! This library is still very much beta.
+* Teams are not parsed yet.
+* Winning players don't seem to be parsed correctly. It could be the replay I'm testing with at the moment.
+* Big-Endian systems are not working correctly.
+
 Contact
 -------
 
@@ -68,6 +83,7 @@ Website: https://github.com/aphistic/zamara
 
 Credits
 -------
+
 * [Tassadar](https://github.com/agoragames/tassadar) -
 The initial inspiration for this project and a source of structure and processes for reading replay files.
 * libmpq -

@@ -35,7 +35,7 @@ namespace zamara {
 	namespace mpq {
 
 MpqBlockEncryptor::MpqBlockEncryptor(std::string key, uint16_t offset,
-                                     uint32_t* buffer, uint32_t size) {
+                                     uint32_t* buffer, size_t size) {
   key_ = key;
   offset_ = offset;
   buffer_ = buffer;

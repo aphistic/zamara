@@ -1,5 +1,7 @@
 #!/bin/sh
 
+# Removes CMake related files to clean up the repo
+
 find . -name "CMakeFiles" | xargs rm -rfv
 find . -name "CMakeScripts" | xargs rm -rfv
 find . -name "*.xcodeproj" | xargs rm -rfv

@@ -75,6 +75,7 @@ Known Issues
 * Teams are not parsed yet.
 * Winning players don't seem to be parsed correctly. It could be the replay I'm testing with at the moment.
 * Big-Endian systems are not working correctly.
+* The library has currently only been tested with older replay files.  It needs to be tested with newer replays.
 
 Contact
 -------

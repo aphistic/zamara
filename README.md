@@ -67,6 +67,7 @@ Planned Features
 * Parsing for actions performed in the replay
 * Parsing for message actions
 * Stat calculations such as APM, EAPM
+* Extensive doxygen documentation
 
 Known Issues
 ------------
